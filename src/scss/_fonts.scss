@@ -1,0 +1,47 @@
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  font-family: "Inter";
+
+  font-display: swap;
+  src:
+    url("../fonts/inter-bold.woff2") format("woff2"),
+    url("../fonts/inter-bold.woff") format("woff");
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+  font-family: "Inter";
+
+  font-display: swap;
+  src:
+    url("../fonts/inter-regular.woff2") format("woff2"),
+    url("../fonts/inter-regular.woff") format("woff");
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  font-family: "Futura";
+
+  font-display: swap;
+  src:
+    url("../fonts/futura-pt-bold.woff2") format("woff2"),
+    url("../fonts/futura-pt-bold.woff") format("woff");
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+  font-family: "SourceSansPro";
+
+  font-display: swap;
+  src:
+    url("../fonts/source-sans-pro-regular.woff2") format("woff2"),
+    url("../fonts/source-sans-pro-regular.woff") format("woff");
+}
+
+$ff-inter:                           "Inter", "Arial", sans-serif;
+$ff-source-sans-pro:                 "SourceSansPro", "Arial", sans-serif;
+$ff-futura:                          "Futura", "Arial", sans-serif;

@@ -1,0 +1,62 @@
+.select {
+  position: relative;
+
+  & label {
+    position: static;
+    transform: none;
+    text-align: left;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #303c54;
+    margin: 0 0 8px;
+  }
+
+  &__custom-icon {
+    border-radius: 50%;
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  & .Mui-focused {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  & legend {
+    display: none;
+  }
+
+  &--form-name {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}

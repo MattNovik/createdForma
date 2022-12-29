@@ -1,0 +1,28 @@
+.select-created {
+  &__custom-icon {
+    border-radius: 50%;
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &:hover,
+    &:focus { 
+      background-color: rgba(0,0,0,0.04);
+    }
+  }
+
+  & .Mui-focused {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
