@@ -2,7 +2,8 @@ import './index.scss';
 import { ReactComponent as IconUpload } from '../../img/upload.svg';
 import { ReactComponent as IconClose } from '../../img/close.svg';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material/styles';
+/* import { styled } from '@mui/material/styles'; */
+import styled from '@emotion/styled';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 
