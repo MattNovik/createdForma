@@ -333,117 +333,156 @@ const phoneRegExp = /^((\+7|7)..([0-9]){3}..([0-9]){3}.([0-9]){2}.([0-9]){2})$/;
 const validationSchema = yup.object({
   city: yup.string() /* .required() */,
   fontSize: yup.string() /* .required() */,
-  nameProf: yup.string() /* .required() */,
-  workType: yup.string(),
+  name: yup.string() /* .required() */,
+  type_of_work_raw: yup.string(),
   subjectType: yup.string() /* .required() */,
   theme: yup.string() /* .required() */,
   email: yup.string().email() /* .required() */,
-  telephone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  phone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
   /* .required() */
 });
 
 const FormCreated = ({
-  color,
+  /*   color,
   realFormName,
   switches,
   subjectName,
   cityName,
   buttonName,
-  workType,
+  type_of_work_raw, */
+  jsonData,
 }) => {
-  console.log(color);
-  console.log(realFormName);
-  console.log(switches);
-  console.log(subjectName);
-  console.log(cityName);
-  console.log(buttonName);
-  console.log(workType);
+  const data = JSON.parse(jsonData);
   const [newNameChecked, setNameChecked] = useState(
-    switches ? switches.find((item) => item.name === 'name').checked : false
+    data.switches
+      ? data.switches.find((item) => item.name === 'name').checked
+      : false
   );
   const [cityChecked, setCityChecked] = useState(
-    switches ? switches.find((item) => item.name === 'city').checked : false
+    data.switches
+      ? data.switches.find((item) => item.name === 'city').checked
+      : false
   );
 
   const [addComment, setAddComment] = useState(false);
 
-  useEffect(() => {
-    formikCreated.setFieldValue(
-      'subjectType',
-      subjectName ? subjectName.value : ''
-    );
-  }, [subjectName]);
-
-  useEffect(() => {
-    formikCreated.setFieldValue(
-      'workType',
-      workType && workType.value !== undefined ? workType.value : ''
-    );
-  }, [workType]);
-
-  useEffect(() => {
-    formikCreated.setFieldValue('city', cityName ? cityName : '');
-  }, [cityName]);
-
+  const formikCreated = useFormik({
+    initialValues: {
+      city: data.cityName ? '' : '',
+      fontSize: newNameChecked ? '' : '',
+      name: '',
+      type_of_work_raw:
+        data.type_of_work_raw && data.type_of_work_raw.value !== 'undefined'
+          ? data.type_of_work_raw.value
+          : '',
+      subjectType: data.subjectName ? data.subjectName.value : '',
+      theme: '',
+      email: '',
+      phone: '+7 (___) ___-__-__',
+      comments: '',
+      files: undefined,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      /* window.open('https://studservis.ru/', '_blank'); */
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   const customChange = (e) => {
     formikCreated.handleChange(e);
   };
 
-  const formikCreated = useFormik({
-    initialValues: {
-      city: cityName ? '' : '',
-      fontSize: newNameChecked ? '' : '',
-      nameProf: '',
-      workType: workType && workType.value !== undefined ? workType.value : '',
-      subjectType: subjectName ? subjectName.value : '',
-      theme: '',
-      email: '',
-      telephone: '+7 (___) ___-__-__',
-      comments: '',
-      files: undefined,
+  useEffect(
+    () => {
+      formikCreated.setFieldValue(
+        'subjectType',
+        data.subjectName ? data.subjectName.value : ''
+      );
+      console.log('update');
     },
-    validateOnChange: true,
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      window.open('https://studservis.ru/', '_blank');
-      alert(JSON.stringify(values, null, 2));
+    [
+      /* data.subjectName */
+    ]
+  );
+
+  useEffect(
+    () => {
+      formikCreated.setFieldValue(
+        'type_of_work_raw',
+        data.type_of_work_raw && data.type_of_work_raw.value !== 'undefined'
+          ? data.type_of_work_raw.value
+          : ''
+      );
     },
-  });
+    [
+      /* data.type_of_work_raw */
+    ]
+  );
 
-  useEffect(() => {
-    if (switches && switches.find((item) => item.name === 'name').checked) {
-      setNameChecked(true);
-    } else if (
-      switches &&
-      switches.find((item) => item.name === 'name').checked === false
-    ) {
-      setNameChecked(false);
-    }
-    if (switches && switches.find((item) => item.name === 'city').checked) {
-      setCityChecked(true);
-    } else if (
-      switches &&
-      switches.find((item) => item.name === 'city').checked === false
-    ) {
-      setCityChecked(false);
-    }
-  }, [switches]);
+  useEffect(
+    () => {
+      formikCreated.setFieldValue('city', data.cityName ? data.cityName : '');
+    },
+    [
+      /* data.cityName */
+    ]
+  );
 
-  useEffect(() => {
-    if (newNameChecked) {
-      formikCreated.setFieldValue('nameProf', '');
-    } else if (newNameChecked === false) {
-      formikCreated.setFieldValue('nameProf', '');
-    }
-  }, [newNameChecked]);
+  useEffect(
+    () => {
+      if (
+        data.switches &&
+        data.switches.find((item) => item.name === 'name').checked
+      ) {
+        setNameChecked(true);
+      } else if (
+        data.switches &&
+        data.switches.find((item) => item.name === 'name').checked === false
+      ) {
+        setNameChecked(false);
+      }
+      if (
+        data.switches &&
+        data.switches.find((item) => item.name === 'city').checked
+      ) {
+        setCityChecked(true);
+      } else if (
+        data.switches &&
+        data.switches.find((item) => item.name === 'city').checked === false
+      ) {
+        setCityChecked(false);
+      }
+    },
+    [
+      /* data.switches */
+    ]
+  );
 
-  useEffect(() => {
-    if (cityChecked) {
-      formikCreated.setFieldValue('city', cityName ? cityName : '');
-    } else if (cityChecked === false) {
-      formikCreated.setFieldValue('city', ' ');
-    }
-  }, [cityChecked]);
+  useEffect(
+    () => {
+      if (newNameChecked) {
+        formikCreated.setFieldValue('name', '');
+      } else if (newNameChecked === false) {
+        formikCreated.setFieldValue('name', '');
+      }
+    },
+    [
+      /* newNameChecked */
+    ]
+  );
+
+  useEffect(
+    () => {
+      if (cityChecked) {
+        formikCreated.setFieldValue('city', data.cityName ? data.cityName : '');
+      } else if (cityChecked === false) {
+        formikCreated.setFieldValue('city', ' ');
+      }
+    },
+    [
+      /* cityChecked */
+    ]
+  );
 
   const customUploadFiles = (files) => {
     let newArray = [];
@@ -457,19 +496,21 @@ const FormCreated = ({
     <form
       onSubmit={formikCreated.handleSubmit}
       className={
-        color
-          ? 'form-created form-created--' + color
+        data.color
+          ? 'form-created form-created--' + data.color
           : 'form-created form-created--red'
       }
     >
       <p className="form-created__name">
-        {realFormName ? realFormName : 'Рассчитайте цену консультации:'}
+        {data.realFormName
+          ? data.realFormName
+          : 'Рассчитайте цену консультации:'}
       </p>
       <div className="form-created__wrapper">
         <SelectorCustomCreated
           labelText="Выберите текст работы"
-          type="work-type-text"
-          value={formikCreated.values.workType}
+          type="work-type"
+          value={formikCreated.values.type_of_work_raw}
           options={typesData}
           customChange={customChange}
         />
@@ -482,8 +523,8 @@ const FormCreated = ({
           customChange={customChangeSearch}
           error={errorSearch}
         /> */}
-        {switches &&
-        switches.find((item) => item.name === 'subject').checked ? (
+        {data.switches &&
+        data.switches.find((item) => item.name === 'subject').checked ? (
           <div
             className={
               'textfield-autocomplete-search textfield-autocomplete-search--subject-type-text'
@@ -566,16 +607,16 @@ const FormCreated = ({
             ),
           }}
         />
-        {switches && switches.find((item) => item.name === 'name').checked ? (
+        {data.switches &&
+        data.switches.find((item) => item.name === 'name').checked ? (
           <CustomTextFieldForm
-            id="nameProf"
+            id="name"
             label="Ваше имя*"
-            name="nameProf"
-            value={formikCreated.values.nameProf}
+            name="name"
+            value={formikCreated.values.name}
             onChange={customChange}
             error={
-              formikCreated.touched.nameProf &&
-              Boolean(formikCreated.errors.nameProf)
+              formikCreated.touched.name && Boolean(formikCreated.errors.name)
             }
             helperText="Вы не указали имя"
             InputProps={{
@@ -583,7 +624,7 @@ const FormCreated = ({
                 <>
                   <IconClose
                     onClick={() => {
-                      formikCreated.setFieldValue('nameProf', '');
+                      formikCreated.setFieldValue('name', '');
                     }}
                     className="icon-close"
                   />
@@ -622,18 +663,18 @@ const FormCreated = ({
             ),
           }}
         />
-        {switches && switches.find((item) => item.name === 'tel').checked ? (
+        {data.switches &&
+        data.switches.find((item) => item.name === 'tel').checked ? (
           <CustomTextFieldForm
-            id="telephone"
+            id="phone"
             label="Номер телефона"
-            name="telephone"
-            value={formikCreated.values.telephone}
+            name="phone"
+            value={formikCreated.values.phone}
             onChange={(value) => {
-              formikCreated.setFieldValue('telephone', value);
+              formikCreated.setFieldValue('phone', value);
             }}
             error={
-              formikCreated.touched.telephone &&
-              Boolean(formikCreated.errors.telephone)
+              formikCreated.touched.phone && Boolean(formikCreated.errors.phone)
             }
             helperText="Вы не указали телефон"
             InputProps={{
@@ -641,10 +682,7 @@ const FormCreated = ({
                 <>
                   <IconClose
                     onClick={() =>
-                      formikCreated.setFieldValue(
-                        'telephone',
-                        '+7 (000) 000-00-00'
-                      )
+                      formikCreated.setFieldValue('phone', '+7 (000) 000-00-00')
                     }
                     className="icon-close"
                   />
@@ -657,7 +695,8 @@ const FormCreated = ({
         ) : (
           ''
         )}
-        {switches && switches.find((item) => item.name === 'city').checked ? (
+        {data.switches &&
+        data.switches.find((item) => item.name === 'city').checked ? (
           <CustomTextFieldForm
             id="city"
             label="Город"
@@ -685,7 +724,8 @@ const FormCreated = ({
         ) : (
           ''
         )}
-        {switches && switches.find((item) => item.name === 'font').checked ? (
+        {data.switches &&
+        data.switches.find((item) => item.name === 'font').checked ? (
           <CustomTextFieldForm
             id="fontSize"
             label="Размер шрифта*"
@@ -719,8 +759,8 @@ const FormCreated = ({
         type="button"
         className={
           addComment ||
-          (switches &&
-            switches.find((item) => item.name === 'commFile').checked)
+          (data.switches &&
+            data.switches.find((item) => item.name === 'commFile').checked)
             ? 'form-created__add-comment form-created__add-comment--open'
             : 'form-created__add-comment'
         }
@@ -734,8 +774,8 @@ const FormCreated = ({
         </span>
       </button>
       {addComment ||
-      (switches &&
-        switches.find((item) => item.name === 'commFile').checked) ? (
+      (data.switches &&
+        data.switches.find((item) => item.name === 'commFile').checked) ? (
         <CommentField
           value={formikCreated.values.comments}
           customChange={customChange}
@@ -747,7 +787,7 @@ const FormCreated = ({
       )}
       <button type="submit" className="form-created__button">
         <span className="form-created__button-text">
-          {buttonName ? buttonName : 'Узнать стоимость'}
+          {data.buttonName ? data.buttonName : 'Узнать стоимость'}
         </span>
         <span className="form-created__button-icon">
           <IconArrowDrop />

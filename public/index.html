@@ -28,7 +28,55 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div
+      id="root"
+      data-info='{
+        "color":"red",
+        "realFormName":"Введите свой заголовок",
+        "switches":[
+           {
+              "label":"Имя",
+              "checked":true,
+              "name":"name"
+           },
+           {
+              "label":"Телефон",
+              "checked":true,
+              "name":"tel"
+           },
+           {
+              "label":"Город",
+              "checked":true,
+              "name":"city"
+           },
+           {
+              "label":"Предмет",
+              "checked":true,
+              "name":"subject"
+           },
+           {
+              "label":"Размер шрифта",
+              "checked":true,
+              "name":"font"
+           },
+           {
+              "label":"Добавить комментарий и файл",
+              "checked":true,
+              "name":"commFile"
+           }
+        ],
+        "subjectName":{
+           "value":"Введите название предмета",
+           "label":"Введите название предмета"
+        },
+        "cityName":"Введите название города",
+        "buttonName":"Узнать стоимость",
+        "type_of_work_raw":{
+           "value":"undefined",
+           "label":"Не выбрана"
+        }
+     }'
+    ></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

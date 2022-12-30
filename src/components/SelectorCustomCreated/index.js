@@ -13,7 +13,7 @@ const CustomSelect = styled(Select)`
 
   & .MuiSelect-select {
     padding: 21px 22px 12px;
-    min-height: auto;
+    min-height: auto !important;
     text-align: left;
     font-family: 'Source Sans Pro';
     font-weight: 400;
@@ -73,7 +73,7 @@ const SelectorCustomCreated = ({ value, options, customChange }) => {
     <div className="select-created select-created--work-type">
       <CustomFormControl fullWidth>
         <InputLabel id="demo-simple-select-label">
-          Выберите тим работы
+          Выберите тип работы
         </InputLabel>
         <CustomSelect
           labelId="demo-simple-select-label"
