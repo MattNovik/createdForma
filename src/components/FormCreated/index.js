@@ -353,7 +353,7 @@ const FormCreated = ({
   type_of_work_raw, */
   jsonData,
 }) => {
-  const data = JSON.parse(jsonData);
+  const data = jsonData;
   const [newNameChecked, setNameChecked] = useState(
     data.switches
       ? data.switches.find((item) => item.name === 'name').checked
