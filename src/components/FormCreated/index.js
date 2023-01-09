@@ -14,6 +14,7 @@ import { styled } from '@mui/material/styles';
 /* import styled from '@emotion/styled'; */
 import { IMaskInput } from 'react-imask';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const CustomTextField = styled(TextField)`
   & .MuiInputBase-root.MuiOutlinedInput-root {
@@ -386,8 +387,11 @@ const FormCreated = ({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      let formData = new FormData();
+      console.log(values);
+
       /* window.open('https://studservis.ru/', '_blank'); */
-      alert(JSON.stringify(values, null, 2));
+      /* alert(JSON.stringify(values, null, 2)); */
     },
   });
   const customChange = (e) => {
