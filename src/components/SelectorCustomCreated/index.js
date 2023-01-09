@@ -79,7 +79,7 @@ const SelectorCustomCreated = ({ value, options, customChange }) => {
         <CustomSelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          name="workType"
+          name="type_of_work_raw"
           value={value}
           onChange={customChange}
           IconComponent={(props) => (
