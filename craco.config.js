@@ -2,6 +2,7 @@ module.exports = {
   eslint: {
     enable: null,
   },
+  plugins: ['no-hashes'],
   style: {
     sass: {
       loaderOptions: {
