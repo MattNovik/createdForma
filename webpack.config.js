@@ -39,7 +39,7 @@ module.exports = {
       },
     ],
   },
-  optimization: {
+  /*   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
@@ -47,5 +47,5 @@ module.exports = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
-  ],
+  ], */
 };
