@@ -336,10 +336,10 @@ const validationSchema = yup.object({
   city: yup.string() /* .required() */,
   fontSize: yup.string() /* .required() */,
   name: yup.string() /* .required() */,
-  type_of_work_raw: yup.string(),
-  subjectType: yup.string() /* .required() */,
-  theme: yup.string() /* .required() */,
-  email: yup.string().email() /* .required() */,
+  type_of_work_raw: yup.string().required(),
+  subjectType: yup.string().required(),
+  theme: yup.string().required(),
+  email: yup.string().email().required(),
   phone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
   /* .required() */
 });
@@ -354,7 +354,6 @@ const FormCreated = ({
   type_of_work_raw, */
   jsonData,
 }) => {
-  console.log(jsonData);
   const data = JSON.parse(jsonData);
   const [newNameChecked, setNameChecked] = useState(
     data.switches
@@ -388,7 +387,25 @@ const FormCreated = ({
     validationSchema: validationSchema,
     onSubmit: (values) => {
       let formData = new FormData();
-      console.log(values);
+      for (let key in values) {
+        formData.append(key, values[key]);
+      }
+      formData.append('partnerId', data.partnerId);
+      axios
+        .post(
+          'https://dev.studservis.ru/wp-content/themes/studservice/ajax/createOrder.php',
+          formData,
+          {
+            auth: {
+              username: 'admin',
+              password: 'zde3jnm4HTD.gbq@amv',
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => console.log(error));
 
       /* window.open('https://studservis.ru/', '_blank'); */
       /* alert(JSON.stringify(values, null, 2)); */
