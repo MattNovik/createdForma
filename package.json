@@ -26,7 +26,7 @@
     "build-rename": "npm run build-rename-js && npm run build-rename-css",
     "build-rename-js": "renamer --regex --find 'main\\.[^\\.]+\\.js' --replace 'main.js' build/static/js/*.js",
     "build-rename-css": "renamer --regex --find 'main\\.[^\\.]+\\.css' --replace 'main.css' build/static/css/*.css",
-    "build": "npm run build:app",
+    "build": "npm run build:app && npm run build:bundle",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
