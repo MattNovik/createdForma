@@ -3,8 +3,9 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { nanoid } from 'nanoid';
-/* import { styled } from '@mui/material/styles'; */
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
+/* import styled from '@emotion/styled'; */
+
 const CustomSwitches = styled(FormGroup)`
   display: grid;
   grid-template-columns: max-content max-content;
